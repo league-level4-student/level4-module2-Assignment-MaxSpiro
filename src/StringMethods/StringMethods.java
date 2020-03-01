@@ -75,6 +75,7 @@ public class StringMethods {
 			} else if(f2.compareTo(f1)<0 && f2.compareTo(f3)<0){
 				
 				return format(s2);
+			} else if(f3.compareTo(f1)<0 && f3.compareTo(f1)<0) {
 				
 				return format(s3);
 			}
