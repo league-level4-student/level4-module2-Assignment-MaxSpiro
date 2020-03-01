@@ -51,6 +51,8 @@ public class StringMethods {
 					c+=s.charAt(i);
 					
 			}
+		} else {
+			c=s;
 		}
 		return c;
 	}
@@ -60,26 +62,60 @@ public class StringMethods {
 	// You cannot assume there are no extra spaces around the name, but you can
 	// assume there is only one space between the first and last name
 	public static String lineLeader(String s1, String s2, String s3) {
-		String f1,f2,f3;
-		f1=s1.toLowerCase();
-		f2=s2.toLowerCase();
-		f3=s3.toLowerCase();
-		int x = 0;
-		while(x<s1.length()&&x<s2.length()&&x<s3.length()) {
-			if(f1.charAt(x)>f2.charAt(x)&&f1.charAt(x)>f3.charAt(x))
-				return s1;
-			else if(f2.charAt(x)>f1.charAt(x)&&f2.charAt(x)>f3.charAt(x))
-				return s2;
-			else if(f3.charAt(x)>f2.charAt(x)&&f3.charAt(x)>f1.charAt(x))
-				return s3;
-			else{
-				x++;
+		
+		String f1=getLastName(s1).toLowerCase();
+		String f2=getLastName(s2).toLowerCase();
+		String f3=getLastName(s3).toLowerCase();
+		
+		
+		while(f1.length()>0 && f2.length()>0 && f3.length()>0) {
+			if(f1.compareTo(f2)<0 && f1.compareTo(f3)<0) {
+				
+				return format(s1);
+			} else if(f2.compareTo(f1)<0 && f2.compareTo(f3)<0){
+				
+				return format(s2);
+				
+				return format(s3);
 			}
 		}
-		return s1;
+		return format(s1);
 	}
 	
-	
+	public static String getLastName(String s) {
+		int x;
+		x=0;
+		while(s.charAt(x)==' ') x++;
+		s=s.substring(x);
+		
+		x=0;
+		while(s.charAt(x)!=' ') x++;
+		return s.charAt(x+1)+"";
+	}
+	public static String format(String s) {
+		int x;
+		x=0;
+		while(s.charAt(x)==' ') x++;
+		s=s.substring(x);
+		
+		String t = "";
+		for(int i=s.length()-1;i>=0;i--) {
+			t+=s.charAt(i);
+		}
+		s=t;
+		
+		x=0;
+		while(s.charAt(x)==' ') x++;
+		s=s.substring(x);
+		
+		t = "";
+		for(int i=s.length()-1;i>=0;i--) {
+			t+=s.charAt(i);
+		}
+		s=t;
+		
+		return s;
+	}
 	// Return the sum of all numerical digits in the String
 	public static int numeralSum(String s) {
 		int sum = 0;
@@ -156,14 +192,8 @@ public class StringMethods {
 	// of String substring and the final occurrence
 	// You can assume that substring will appear at least twice
 	public static int distance(String s, String substring) {
-		int first = s.indexOf(substring);
-		while(s.indexOf(substring)!=-1) {
-			if(!s.substring(s.indexOf(substring)+substring.length()).contains(substring))
-				return s.indexOf(substring)-first;
-			else
-				s=s.substring(s.indexOf(substring)+substring.length());
-		}
-		return 0;
+		return s.lastIndexOf(substring)-s.indexOf(substring);
+		
 	}
 
 
